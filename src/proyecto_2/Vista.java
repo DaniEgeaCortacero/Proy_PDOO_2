@@ -14,7 +14,7 @@ public class Vista extends javax.swing.JFrame {
     private JLabel texto;
     private JTextField texto_velocidadMaxima;
     private JTextArea texto_vehiculos;
-    private JButton boton, boton2;
+    private JButton boton, boton2, boton3;
     
     private GestorVehiculo gestor;
     
@@ -50,6 +50,12 @@ public class Vista extends javax.swing.JFrame {
         boton2.setLocation(120, 40);
         boton2.setVisible(true);
         
+        boton3 = new JButton("Incrementar velocidad");
+        boton3.setSize(162, 30);
+        boton3.setPreferredSize(new Dimension(162, 30));
+        boton3.setLocation(230, 40);
+        boton3.setVisible(true);
+        
         texto_vehiculos = new JTextArea();
         texto_vehiculos.setLocation(10, 80);
         texto_vehiculos.setAutoscrolls(true);
@@ -68,7 +74,7 @@ public class Vista extends javax.swing.JFrame {
         boton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Coche c = new Coche(Integer.parseInt(texto_velocidadMaxima.getText()), 0, 0, 50, 4);
+                Coche c = new Coche(Integer.parseInt(texto_velocidadMaxima.getText()), 0, 50, 50, 4);
                 gestor.addVehiculo(c);
                 texto_vehiculos.setText(gestor.mostrarVehiculos());
                 texto_vehiculos.setCaretPosition(texto_vehiculos.getDocument().getLength());
@@ -84,7 +90,7 @@ public class Vista extends javax.swing.JFrame {
         boton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Moto m = new Moto(Integer.parseInt(texto_velocidadMaxima.getText()), 0, 0, 50, true);
+                Moto m = new Moto(Integer.parseInt(texto_velocidadMaxima.getText()), 0, 30, 30, true);
                 gestor.addVehiculo(m);
                 texto_vehiculos.setText(gestor.mostrarVehiculos());
                 texto_vehiculos.setCaretPosition(texto_vehiculos.getDocument().getLength());
@@ -97,10 +103,28 @@ public class Vista extends javax.swing.JFrame {
             }
         });
         
+        boton3.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Vehiculo v = gestor.gestor.getLast();
+                v.aumentarMedia();
+                
+                texto_vehiculos.setText(gestor.mostrarVehiculos());
+                texto_vehiculos.setCaretPosition(texto_vehiculos.getDocument().getLength());
+                
+                texto_vehiculos.setCaretPosition(texto_vehiculos.getDocument().getLength());
+
+                texto_vehiculos.revalidate();
+                texto_vehiculos.repaint();
+            }
+            
+        });
+        
         this.add(texto);
         this.add(texto_velocidadMaxima);
         this.add(boton);
         this.add(boton2);
+        this.add(boton3);
         this.add(scroll);
         
         this.getGraphics();
