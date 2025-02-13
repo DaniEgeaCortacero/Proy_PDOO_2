@@ -70,6 +70,9 @@ public class Vehiculo {
         if(deposito > 0){
             velocidad_media += 10;
             deposito -= 1;
+            if(velocidad_media > velocidad_max){
+                velocidad_media = velocidad_max;
+            }
         } else {
             System.err.println("Depósito vacío.");
             velocidad_media = 0;
